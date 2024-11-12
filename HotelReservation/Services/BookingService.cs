@@ -80,6 +80,15 @@ namespace HotelReservation.Services
             await _dbContext.SaveChangesAsync();
         }
 
+        public async Task<List<Reservation>> GetReservationsAsync(int roomId)
+        {
+            var reservations = await _dbContext.Reservations
+                .Where(r => r.RoomID == roomId)
+                .ToListAsync();
+
+            return reservations;
+        }
+
         public async Task<List<Room>> GetRoomsAsync(DateTime startDate, DateTime endDate)
         {
             var reservedRooms = await _dbContext.Reservations
@@ -91,6 +100,7 @@ namespace HotelReservation.Services
 
             var availableRooms = await _dbContext.Rooms
                 .Where(r => !reservedRooms.Contains(r.RoomID))
+                .Include(r => r.Hotel)
                 .ToListAsync();
 
             return availableRooms;
