@@ -23,6 +23,7 @@ public class Program
         int roomId = 0;
         while (true)
         {
+            Console.Clear();
             Console.WriteLine("\n--- Booking service ---");
             Console.WriteLine("1. Available rooms");
             Console.WriteLine("2. Create Reservation");
@@ -45,8 +46,6 @@ public class Program
                     {
                         Console.WriteLine($"Hotel: {room.Hotel.HotelName}\tRoom Id: {room.RoomID}\tType: {room.Type}\tPrice: {room.Price}");
                     }
-                    Console.ReadKey();
-                    Console.Clear();
                     break;
                 case "2":
                     GetDate(ref startDate, ref endDate);
@@ -54,14 +53,10 @@ public class Program
 
                     await bookingService.CreateReservationAsync(roomId, startDate, endDate);
                     Console.WriteLine("Success");
-                    Console.ReadKey();
-                    Console.Clear();
                     break;
                 case "3":
                     await DeleteReservation(bookingService);
                     Console.WriteLine("Success");
-                    Console.ReadKey();
-                    Console.Clear();
                     break;
                 case "4":
                     GetDate(ref startDate, ref endDate);
@@ -69,8 +64,6 @@ public class Program
 
                     await bookingService.UpdateReservationAsync(roomId, startDate, endDate);
                     Console.WriteLine("Success");
-                    Console.ReadKey();
-                    Console.Clear();
                     break;
                 case "0":
                     Console.WriteLine("Exit");
@@ -79,7 +72,7 @@ public class Program
                     Console.WriteLine("NaN");
                     break;
             }
-
+            Console.ReadKey();
         }
     }
 
